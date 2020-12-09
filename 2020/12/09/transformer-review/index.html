@@ -1,0 +1,165 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Transformer for Time Series review | Rickypp's blog</title><meta name="keywords" content="time series"><meta name="author" content="Rickypp"><meta name="copyright" content="Rickypp"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><meta name="description" content="Transformer for Time Series">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Transformer for Time Series review">
+<meta property="og:url" content="http://example.com/2020/12/09/transformer-review/index.html">
+<meta property="og:site_name" content="Rickypp&#39;s blog">
+<meta property="og:description" content="Transformer for Time Series">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/popcorn.png">
+<meta property="article:published_time" content="2020-12-09T13:48:19.000Z">
+<meta property="article:modified_time" content="2020-12-09T13:53:32.143Z">
+<meta property="article:author" content="Rickypp">
+<meta property="article:tag" content="time series">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/popcorn.png"><link rel="shortcut icon" href="/img/strawberry.png"><link rel="canonical" href="http://example.com/2020/12/09/transformer-review/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  ClickShowText: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2020-12-09 21:53:32'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+   if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+  const autoChangeMode = 'false'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }})()</script><meta name="generator" content="Hexo 5.2.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="/img/popcorn.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">3</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">1</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div></div></div></div><div id="body-wrap"><header class="post-bg" id="page-header" style="background: linear-gradient(20deg, #CCCCFF, #935696, #cc426e, #6E7D6)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Rickypp's blog</a></span><span id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div></div><span class="close" id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><h1 class="post-title">Transformer for Time Series review</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-12-09T13:48:19.000Z" title="发表于 2020-12-09 21:48:19">2020-12-09</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2020-12-09T13:53:32.143Z" title="更新于 2020-12-09 21:53:32">2020-12-09</time></span></div><div class="meta-secondline"> </div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="Transformer-for-Time-Series"><a href="#Transformer-for-Time-Series" class="headerlink" title="Transformer for Time Series"></a>Transformer for Time Series</h1><p>总结3种Transformer for Time Series，这里谈的只是 forecast</p>
+<h2 id="Naive-Transformer-for-TS"><a href="#Naive-Transformer-for-TS" class="headerlink" title="Naive Transformer for TS"></a>Naive Transformer for TS</h2><p>几乎等于原NLP版的Transformer，一般对position_encoding以及输出层有些改变来适配时序数据</p>
+<p>解决的问题：</p>
+<ul>
+<li>RNN建模长期依赖能力不足，即使是LSTM/GRU，利用历史信息也仍然受限于一定范围。Transformer利用attention机制可以访问到所有历史信息。</li>
+<li>基于RNN的模型串行输入训练速度较慢。attention可以实现一定程度的并行，加快训练。</li>
+</ul>
+<h2 id="ConvTrans"><a href="#ConvTrans" class="headerlink" title="ConvTrans"></a>ConvTrans</h2><p>来源:  <a target="_blank" rel="noopener" href="https://arxiv.org/abs/1907.00235">Enhancing the Locality and Breaking the Memory Bottleneck of Transformer on Time Series Forecasting</a></p>
+<p>注意该模型用的是 decoder-only transformer （只用decoder部分），具体看原文</p>
+<p>解决的问题：</p>
+<ul>
+<li>原Transformer中attention计算时只考虑点间(point-wise)的相似性，没有充分利用局部上下文，可能导致模型建立错误的关联，影响优化过程。提出 convolutional self-attention 来增强对局部信息的利用。</li>
+<li>Transformer的一个重大限制在于计算 attention score 时二次方的空间复杂度，意味着建立具有细粒度和强烈的长期依赖性的长序列模型变得非常困难。提出 log sparse attention ，将空间复杂度从 O(L^2) 将到O(L * log(L)) 。（L是序列长度）</li>
+</ul>
+<h2 id="TemporalFusionTransformer-tft"><a href="#TemporalFusionTransformer-tft" class="headerlink" title="TemporalFusionTransformer (tft)"></a>TemporalFusionTransformer (tft)</h2><p>来源: <a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1912.09363v2.pdf">Temporal Fusion Transformers for Interpretable Multi-horizon Time Series Forecasting</a></p>
+<p>解决的问题：</p>
+<ul>
+<li>Multi-horizon预测常常包含复杂的输入，包括静态（时间无关的）协变量，已知的未来输入，以及其他仅在过去观察到的外源（exogenous）时序数据。但却没有任何关于它们如何交互的先验知识。</li>
+<li>神经网络模型可解释性差。</li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
+<li>现有的Transformer for TS方法都是针对单时间序列，还没看到对多时间序列的。</li>
+<li>现有的Transformer for TS方法都是将attention用在时间维度上（或者说沿用了总体架构），之前有只将attention用在特征维度上的（只使用attention机制）。</li>
+<li>在Transformer的基础上又产生很多经典NLP模型，比如BERT，GPT等等，但在时序数据上的进展缓慢。</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Rickypp</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2020/12/09/transformer-review/">http://example.com/2020/12/09/transformer-review/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">Rickypp's blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/time-series/">time series</a></div><div class="post_share"></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2020/12/07/time-series-forecast-covariate/"><img class="next-cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Time Series Forecast -- Covariate</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2020/11/05/time-series-material/" title="Time Series Material"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-11-05</div><div class="title">Time Series Material</div></div></a></div><div><a href="/2020/12/07/time-series-forecast-covariate/" title="Time Series Forecast -- Covariate"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-12-07</div><div class="title">Time Series Forecast -- Covariate</div></div></a></div></div></div></div><div class="aside_content" id="aside_content"><div class="card-widget card-announcement"><div class="card-content"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">还在装修~</div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="card-content"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Transformer-for-Time-Series"><span class="toc-number">1.</span> <span class="toc-text">Transformer for Time Series</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Naive-Transformer-for-TS"><span class="toc-number">1.1.</span> <span class="toc-text">Naive Transformer for TS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ConvTrans"><span class="toc-number">1.2.</span> <span class="toc-text">ConvTrans</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TemporalFusionTransformer-tft"><span class="toc-number">1.3.</span> <span class="toc-text">TemporalFusionTransformer (tft)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">1.4.</span> <span class="toc-text">总结</span></a></li></ol></li></ol></div></div></div><div class="card-widget card-recent-post"><div class="card-content"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2020/12/09/transformer-review/" title="Transformer for Time Series review">Transformer for Time Series review</a><time datetime="2020-12-09T13:48:19.000Z" title="发表于 2020-12-09 21:48:19">2020-12-09</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2020/12/07/time-series-forecast-covariate/" title="Time Series Forecast -- Covariate">Time Series Forecast -- Covariate</a><time datetime="2020-12-07T11:17:38.000Z" title="发表于 2020-12-07 19:17:38">2020-12-07</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2020/11/05/time-series-material/" title="Time Series Material">Time Series Material</a><time datetime="2020-11-05T08:18:21.000Z" title="发表于 2020-11-05 16:18:21">2020-11-05</time></div></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="footer_custom_text">很懒的啦~</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><div class="js-pjax"></div></div></body></html>
